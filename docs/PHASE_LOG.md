@@ -2,6 +2,17 @@
 
 Newest first. Each entry: date, what changed, what was tested, what is pending.
 
+## 2026-11-14 — Game-wide PT-BR pack built
+
+- Found the community translation "Tradução PT-BR" (Emerson Antunes), built for the Spanish
+  slot and last updated 2026-07-10 (declared 1.19).
+- `tools/build_ptbr_pack.py` converts it into an English-override pack and appends the
+  English original for every key it does not translate.
+- Measured on the installed build: 1172 files, 286.967 translated keys, 8.063 English
+  fallbacks, 96,1% of the 307.119 vanilla keys covered, zero raw keys, 78 files still
+  English.
+- Installed as `traducao_ptbr_120` in the mod folder. Not verified in game (no session).
+
 ## 2026-11-14 — Localization switched to Brazilian Portuguese
 
 - The game is played in English, and CK3 has no Portuguese language slot, so every SRD
