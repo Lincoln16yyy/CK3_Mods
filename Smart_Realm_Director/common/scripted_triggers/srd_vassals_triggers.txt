@@ -1,4 +1,4 @@
-# Smart Realm Director - Smart Vassals triggers.
+﻿# Smart Realm Director - Smart Vassals triggers.
 # Scope: a vassal of the player (evaluated inside every_vassal / any_vassal).
 #
 # Evidence for each primitive (CK3 1.20.1, installed game files):

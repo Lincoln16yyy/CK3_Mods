@@ -1,4 +1,4 @@
-namespace = srd_events
+﻿namespace = srd_events
 
 # Supervised mode prompt. Fired only from srd_vassals_yearly_effect after the
 # candidate is stored in var:srd_pending_courtesy.

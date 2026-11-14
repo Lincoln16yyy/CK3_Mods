@@ -1,0 +1,32 @@
+﻿l_korean:
+ rule_srd_vassal_courtesies:0 "Diretor do Reino: Cortesias a Vassalos"
+ setting_srd_vassal_courtesies_off:0 "Desativado"
+ setting_srd_vassal_courtesies_off_desc:0 "O Diretor não faz nada. Nenhum ouro é gasto e nenhuma sugestão aparece."
+ setting_srd_vassal_courtesies_advisor:0 "Conselheiro"
+ setting_srd_vassal_courtesies_advisor_desc:0 "O Diretor apenas aponta um vassalo desleal que mereceria uma cortesia. Nada é gasto e nada muda."
+ setting_srd_vassal_courtesies_supervised:0 "Supervisionado"
+ setting_srd_vassal_courtesies_supervised_desc:0 "O Diretor prepara a cortesia e pede a sua decisão. O ouro só é gasto se você aceitar."
+ setting_srd_vassal_courtesies_auto:0 "Automático"
+ setting_srd_vassal_courtesies_auto_desc:0 "O Diretor envia a cortesia sozinho, desde que o tesouro permaneça acima da reserva."
+
+ srd_courtesy_opinion:0 "Cortesia do governante"
+ srd_courtesy_opinion_desc:0 "O governante notou a nossa situação e demonstrou isso com um presente."
+
+ srd_toast_courtesy_title:0 "Diretor do Reino"
+ srd_toast_courtesy_desc:0 "Uma cortesia foi enviada a um vassalo desleal."
+ srd_toast_advice_title:0 "Diretor do Reino: sugestão"
+ srd_toast_advice_desc:0 "Um vassalo desleal melhoraria a opinião com uma cortesia."
+
+ srd_prompt_title:0 "Uma Cortesia para um Vassalo Desleal"
+ srd_prompt_desc:0 "Um dos seus vassalos tem má opinião sobre você. Um presente melhoraria a disposição dele, ao custo de parte do seu tesouro."
+ srd_prompt_accept:0 "Enviar o presente"
+ srd_prompt_decline:0 "Agora não"
+ srd_prompt_decline_tt:0 "Nada é gasto e o vassalo permanece como está."
+
+ srd_realm_report_decision:0 "Pedir um Relatório ao Diretor"
+ srd_realm_report_decision_desc:0 "Pergunte ao Diretor do Reino o que ele está autorizado a fazer no seu reino neste momento."
+ srd_realm_report_decision_tooltip:0 "Abrir o relatório de situação do Diretor."
+
+ srd_report_title:0 "Diretor do Reino: Situação"
+ srd_report_desc:0 "O Diretor está instalado e cada módulo obedece às suas regras de jogo.\n\nVassalos: cortesias a vassalos desleais. Desativado não faz nada; Conselheiro apenas sugere; Supervisionado pergunta antes de gastar; Automático gasta ouro mantendo o tesouro acima da reserva.\n\nSomente ações confirmadas nesta versão do jogo são executadas. Os demais módulos continuam em análise e estão listados na documentação do projeto."
+ srd_report_option_close:0 "Entendido"

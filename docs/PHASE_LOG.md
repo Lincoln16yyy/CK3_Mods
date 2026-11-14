@@ -2,6 +2,26 @@
 
 Newest first. Each entry: date, what changed, what was tested, what is pending.
 
+## 2026-11-14 — Primeira sessão real com os mods ativos (achou 3 defeitos)
+
+Relato do usuário: "entrei no jogo tudo português". O `debug.log` confirma
+`Traducao PT-BR (compat 1.20.1)|Enabled` e `Smart Realm Director|Enabled`, ambos montados.
+
+Erros encontrados no `error.log` e corrigidos na sequência:
+
+1. **8 `.txt` sem BOM** (`should be in utf8-bom encoding`) — as ferramentas de escrita
+gravavam UTF-8 puro. Agora todos os `.txt` têm BOM e o validador passou a exigir isso.
+2. **13 `Unrecognized loc key srd_*`** — o jogo estava em espanhol e a loc só existia em
+`localization/english/`. Agora existem os 9 idiomas suportados, e o validador avisa se
+faltar algum.
+3. **`Unknown trigger: limit` em `any_vassal`** — em 1.20.1 `any_*` não aceita `limit`;
+os triggers vão direto na lista. Corrigido e o validador ganhou um lint para isso.
+
+Também corrigido: a checagem de chave duplicada do validador comparava idiomas diferentes
+entre si (208 falsos positivos); agora a unicidade é por idioma.
+
+Ainda não re-testado em jogo.
+
 ## 2026-11-14 — Diagnóstico do primeiro teste em jogo
 
 - Relato do usuário: entrou em inglês e continuou inglês; trocou para espanhol e continuou

@@ -1,4 +1,4 @@
-# Smart Realm Director - game rules (per-module automation mode).
+﻿# Smart Realm Director - game rules (per-module automation mode).
 # Target: CK3 1.20.1. Format follows game/common/game_rules/00_game_rules.txt
 # ("game_modes" is an existing category, see game_rules/_game_rules.info).
 # Every setting below changes real behaviour: see srd_vassals_yearly_effect.

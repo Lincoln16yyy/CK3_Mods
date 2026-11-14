@@ -1,4 +1,4 @@
-# Smart Realm Director - tunable values.
+﻿# Smart Realm Director - tunable values.
 # Kept deliberately simple in Phase 1: fixed numbers, documented in docs/ARCHITECTURE.md.
 # Phase 2 replaces these with income/tier-aware values once runtime numbers are measured.
 

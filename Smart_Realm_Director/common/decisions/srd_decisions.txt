@@ -1,4 +1,4 @@
-# Smart Realm Director - decisions (Phase 1 interface).
+﻿# Smart Realm Director - decisions (Phase 1 interface).
 # Decisions are reused instead of overriding gui/window_council.gui or
 # gui/window_military.gui, which are already contested by other installed mods.
 

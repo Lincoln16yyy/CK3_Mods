@@ -1,4 +1,4 @@
-# Smart Realm Director - on_action hooks.
+﻿# Smart Realm Director - on_action hooks.
 #
 # yearly_playable_pulse is defined by vanilla (game/common/on_action/yearly_on_actions.txt).
 # Per game/common/on_action/_on_actions.info and ck3.paradoxwikis.com/Modding, the

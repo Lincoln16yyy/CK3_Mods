@@ -86,6 +86,45 @@ def check_descriptor() -> None:
             errors.append(f"descriptor.mod: missing {field.rstrip('=')}")
 
 
+SUPPORTED_LANGUAGES = [
+    "english",
+    "french",
+    "german",
+    "polish",
+    "spanish",
+    "simp_chinese",
+    "russian",
+    "korean",
+    "japanese",
+]
+
+
+def check_encoding_and_lists() -> None:
+    """The engine wants UTF-8 BOM on every .txt and rejects `limit` inside any_* lists.
+
+    Both were real error.log findings on 1.20.1 (see docs/RUNTIME_TESTS.md, R0).
+    """
+    for path in sorted(MOD.rglob("*.txt")):
+        raw = path.read_bytes()
+        if not raw.startswith(b"\xef\xbb\xbf"):
+            errors.append(f"{rel(path)}: missing UTF-8 BOM (engine logs an encoding error)")
+        lines = raw.decode("utf-8-sig").split("\n")
+        for index, line in enumerate(lines):
+            if not re.search(r"\bany_[a-z_]+\s*=\s*\{\s*$", line):
+                continue
+            depth = 1
+            for follow in lines[index + 1 :]:
+                if re.search(r"\blimit\s*=\s*\{", follow):
+                    errors.append(
+                        f"{rel(path)}:{index + 1}: 'limit' inside an any_* list is rejected "
+                        "by 1.20.1 - put the triggers directly in the list"
+                    )
+                    break
+                depth += follow.count("{") - follow.count("}")
+                if depth <= 0:
+                    break
+
+
 def check_balance() -> None:
     for path in sorted(MOD.rglob("*.txt")):
         text = strip_comments_and_strings(path.read_text(encoding="utf-8-sig"))
@@ -106,6 +145,7 @@ def check_balance() -> None:
 
 def check_localization() -> tuple[set[str], set[str]]:
     keys: dict[str, str] = {}
+    seen: dict[tuple[str, str], str] = {}
     langs: set[str] = set()
     loc_root = MOD / "localization"
     if not loc_root.is_dir():
@@ -131,13 +171,23 @@ def check_localization() -> tuple[set[str], set[str]]:
             if not match:
                 continue
             key = match.group(1)
-            if key in keys:
+            ident = (lang, key)
+            if ident in seen:
                 errors.append(
-                    f"{rel(path)}:{number}: duplicate loc key '{key}' (also in {keys[key]})"
+                    f"{rel(path)}:{number}: duplicate loc key '{key}' for l_{lang} "
+                    f"(also in {seen[ident]})"
                 )
+            seen[ident] = f"{rel(path)}:{number}"
             keys[key] = f"{rel(path)}:{number}"
     if "english" not in langs:
         errors.append("localization: no English file found")
+    missing_langs = [lang for lang in SUPPORTED_LANGUAGES if lang not in langs]
+    if missing_langs:
+        notes.append(
+            "localization: no file for "
+            + ", ".join(missing_langs)
+            + " - players on those languages see raw keys"
+        )
     return set(keys), langs
 
 
@@ -242,6 +292,7 @@ def main() -> int:
         return 1
 
     check_descriptor()
+    check_encoding_and_lists()
     check_balance()
     keys, _langs = check_localization()
     check_script_references(keys)

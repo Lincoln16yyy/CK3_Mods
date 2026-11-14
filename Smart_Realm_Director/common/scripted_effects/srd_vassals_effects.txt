@@ -1,4 +1,4 @@
-# Smart Realm Director - Smart Vassals execution effects.
+﻿# Smart Realm Director - Smart Vassals execution effects.
 #
 # Phase 1 gap filled: no installed mod gifts gold to disloyal vassals automatically.
 # Cost is real (remove_short_term_gold, verified in installed 1.20 mods such as
@@ -13,8 +13,9 @@ srd_vassals_yearly_effect = {
 		limit = {
 			NOT = { has_game_rule = srd_vassal_courtesies_off }
 			NOT = { has_character_flag = srd_courtesy_cooldown }
+			# 1.20.1 rejects "limit" inside any_*: the triggers go directly in the list.
 			any_vassal = {
-				limit = { srd_courtesy_candidate_trigger = yes }
+				srd_courtesy_candidate_trigger = yes
 				count >= 1
 			}
 		}
