@@ -36,8 +36,13 @@ allowed to use, and nothing outside it may be assumed.
 
 `game/localization/languages.yml` lists exactly nine languages: English, French, German,
 Polish, Spanish, Simplified Chinese, Russian, Korean, Japanese. **Portuguese is not
-supported by CK3 1.20.1**; a `localization/braz_por/` folder is never loaded. Portuguese
-documentation therefore lives in `docs/`, not in the mod.
+supported by CK3 1.20.1**; a `localization/braz_por/` folder is never loaded.
+
+Workaround in use: the game is played in English, so the mod's Brazilian Portuguese text
+is stored in `localization/english/srd_l_english.yml` (valid `l_english:` header). The
+engine reads the English file and displays Portuguese. This only works for English
+installs; other languages would need their own translated files. See
+`docs/LOCALIZATION.md`.
 
 ## Known limits (proven negatives)
 

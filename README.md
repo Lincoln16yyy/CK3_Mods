@@ -46,9 +46,12 @@ other installed mods.
   files are balanced, localization is complete and CI passes.
 - **Not verified:** nothing has been executed inside the game yet. `docs/RUNTIME_TESTS.md`
   lists the exact checks that still need a running CK3.
-- **Portuguese (pt-BR):** CK3 1.20.1 ships nine languages and Portuguese is not one of
-  them (`game/localization/languages.yml`). A pt-BR `.yml` can never be loaded by the
-  engine, so the mod ships English and keeps the Portuguese documentation in `docs/`.
+- **Language:** CK3 1.20.1 ships nine languages and Portuguese is not one of them
+  (`game/localization/languages.yml`), so a pt-BR file can never be loaded. The game runs
+  in English here, therefore the mod's in-game text is **Brazilian Portuguese stored in
+  `localization/english/srd_l_english.yml`** — it displays as Portuguese because the
+  English file is the one the engine reads. Details and the English originals:
+  `docs/LOCALIZATION.md`.
 
 ### Documentation
 
@@ -58,5 +61,6 @@ other installed mods.
 - `docs/GAP_ANALYSIS.md` — coverage matrix and the five candidate automations
 - `docs/ARCHITECTURE.md` — module design, flow and cost
 - `docs/TEST_PLAN.md`, `docs/RUNTIME_TESTS.md` — levels A/B/C and pending checks
+- `docs/LOCALIZATION.md` — why the text is Portuguese inside the English file
 - `docs/PERFORMANCE.md`, `docs/PHASE_LOG.md`, `docs/STATUS.md`
 - `docs/DEVELOPMENT_GUIDE.md` — environment, debug mode, workflow

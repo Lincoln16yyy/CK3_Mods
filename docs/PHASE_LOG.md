@@ -2,6 +2,14 @@
 
 Newest first. Each entry: date, what changed, what was tested, what is pending.
 
+## 2026-11-14 — Localization switched to Brazilian Portuguese
+
+- The game is played in English, and CK3 has no Portuguese language slot, so every SRD
+  string was rewritten in pt-BR **inside `localization/english/srd_l_english.yml`**. The
+  English originals are kept in `docs/LOCALIZATION.md`.
+- Static checks re-run and passing; the live copy in the mod folder was reinstalled.
+- Runtime still unverified (R0–R13 unchanged).
+
 ## 2026-11-14 — Phase 0 + Phase 1 (first delivery)
 
 **Research**
