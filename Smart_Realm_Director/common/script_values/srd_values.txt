@@ -1,0 +1,13 @@
+# Smart Realm Director - tunable values.
+# Kept deliberately simple in Phase 1: fixed numbers, documented in docs/ARCHITECTURE.md.
+# Phase 2 replaces these with income/tier-aware values once runtime numbers are measured.
+
+# Gold spent per courtesy gift (mirrors the scale of a vanilla gift to a vassal).
+srd_courtesy_cost_value = {
+	value = 30
+}
+
+# Treasury floor that must remain after the gift in Automatic mode.
+srd_courtesy_reserve_value = {
+	value = 150
+}

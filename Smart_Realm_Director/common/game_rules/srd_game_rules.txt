@@ -1,0 +1,28 @@
+# Smart Realm Director - game rules (per-module automation mode).
+# Target: CK3 1.20.1. Format follows game/common/game_rules/00_game_rules.txt
+# ("game_modes" is an existing category, see game_rules/_game_rules.info).
+# Every setting below changes real behaviour: see srd_vassals_yearly_effect.
+
+srd_vassal_courtesies = {
+	default = srd_vassal_courtesies_supervised
+
+	categories = {
+		game_modes
+	}
+
+	# Module off: no gifts, no suggestions, no gold spent.
+	srd_vassal_courtesies_off = {
+	}
+
+	# Advisor: only a toast suggesting the gift. Nothing is spent.
+	srd_vassal_courtesies_advisor = {
+	}
+
+	# Supervised (default): the player gets an event and decides.
+	srd_vassal_courtesies_supervised = {
+	}
+
+	# Automatic: the gift is executed when the treasury reserve allows it.
+	srd_vassal_courtesies_auto = {
+	}
+}

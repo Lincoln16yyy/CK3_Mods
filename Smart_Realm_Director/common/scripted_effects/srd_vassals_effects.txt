@@ -1,0 +1,119 @@
+# Smart Realm Director - Smart Vassals execution effects.
+#
+# Phase 1 gap filled: no installed mod gifts gold to disloyal vassals automatically.
+# Cost is real (remove_short_term_gold, verified in installed 1.20 mods such as
+# auto_builder_mod and council_autopilot); nothing is generated.
+#
+# Flow:  gate (mode / cooldown / candidate / reserve)
+#        -> select one candidate  (srd_pick_courtesy_target_effect)
+#        -> dispatch by mode      (auto / advisor / supervised)
+
+srd_vassals_yearly_effect = {
+	if = {
+		limit = {
+			NOT = { has_game_rule = srd_vassal_courtesies_off }
+			NOT = { has_character_flag = srd_courtesy_cooldown }
+			any_vassal = {
+				limit = { srd_courtesy_candidate_trigger = yes }
+				count >= 1
+			}
+		}
+
+		srd_pick_courtesy_target_effect = yes
+
+		if = {
+			limit = {
+				exists = scope:srd_candidate
+				has_game_rule = srd_vassal_courtesies_auto
+				gold >= srd_courtesy_reserve_value
+			}
+			srd_send_courtesy_effect = yes
+		}
+		else_if = {
+			limit = {
+				exists = scope:srd_candidate
+				has_game_rule = srd_vassal_courtesies_advisor
+			}
+			srd_advise_courtesy_effect = yes
+		}
+		else_if = {
+			limit = { exists = scope:srd_candidate }
+			# Supervised: nothing is spent until the player accepts the event option.
+			set_variable = {
+				name = srd_pending_courtesy
+				value = scope:srd_candidate
+			}
+			add_character_flag = { flag = srd_courtesy_cooldown days = 90 }
+			trigger_event = { id = srd_events.0001 days = 0 }
+		}
+	}
+}
+
+# Builds a temporary list of candidates and saves one at random as scope:srd_candidate.
+# add_to_temporary_list / random_in_list verified in game/events/education_and_childhood/
+# chinese_disciple_events.txt (1.20.1).
+srd_pick_courtesy_target_effect = {
+	every_vassal = {
+		limit = { srd_courtesy_candidate_trigger = yes }
+		add_to_temporary_list = srd_courtesy_candidates
+	}
+	random_in_list = {
+		list = srd_courtesy_candidates
+		save_temporary_scope_as = srd_candidate
+	}
+}
+
+# Automatic mode: pay gold, grant the opinion, respect the reserve floor.
+srd_send_courtesy_effect = {
+	reverse_add_opinion = {
+		target = scope:srd_candidate
+		modifier = srd_courtesy_opinion
+		years = 5
+	}
+	scope:srd_candidate = {
+		add_character_flag = { flag = srd_gift_received years = 3 }
+	}
+	remove_short_term_gold = srd_courtesy_cost_value
+	add_character_flag = { flag = srd_courtesy_cooldown days = 365 }
+	send_interface_toast = {
+		type = event_toast_effect_neutral
+		title = srd_toast_courtesy_title
+		left_icon = scope:srd_candidate
+		custom_tooltip = srd_toast_courtesy_desc
+	}
+	debug_log = "SRD: courtesy gift executed"
+}
+
+# Advisor mode: suggestion only. No gold, no opinion change.
+srd_advise_courtesy_effect = {
+	send_interface_toast = {
+		type = event_toast_effect_neutral
+		title = srd_toast_advice_title
+		left_icon = scope:srd_candidate
+		custom_tooltip = srd_toast_advice_desc
+	}
+	add_character_flag = { flag = srd_courtesy_cooldown days = 180 }
+	debug_log = "SRD: courtesy advice shown"
+}
+
+# Used by the supervised event option: executes the pending gift and always cleans up.
+srd_execute_pending_courtesy_effect = {
+	if = {
+		limit = {
+			exists = var:srd_pending_courtesy
+			gold >= srd_courtesy_cost_value
+			var:srd_pending_courtesy = { is_alive = yes }
+		}
+		reverse_add_opinion = {
+			target = var:srd_pending_courtesy
+			modifier = srd_courtesy_opinion
+			years = 5
+		}
+		var:srd_pending_courtesy = {
+			add_character_flag = { flag = srd_gift_received years = 3 }
+		}
+		remove_short_term_gold = srd_courtesy_cost_value
+		debug_log = "SRD: supervised courtesy accepted"
+	}
+	remove_variable = srd_pending_courtesy
+}

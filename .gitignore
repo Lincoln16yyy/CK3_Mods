@@ -1,0 +1,9 @@
+# Build artefacts, logs and personal data that must never be committed.
+*.log
+logs/
+saves/
+*.save
+*.dmp
+__pycache__/
+*.pyc
+.DS_Store

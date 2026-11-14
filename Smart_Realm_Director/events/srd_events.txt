@@ -1,0 +1,42 @@
+namespace = srd_events
+
+# Supervised mode prompt. Fired only from srd_vassals_yearly_effect after the
+# candidate is stored in var:srd_pending_courtesy.
+srd_events.0001 = {
+	type = character_event
+	title = srd_prompt_title
+	theme = realm
+	desc = srd_prompt_desc
+
+	left_portrait = {
+		character = var:srd_pending_courtesy
+	}
+
+	option = {
+		name = srd_prompt_accept
+		trigger = { gold >= srd_courtesy_cost_value }
+		srd_execute_pending_courtesy_effect = yes
+	}
+
+	option = {
+		name = srd_prompt_decline
+		custom_tooltip = srd_prompt_decline_tt
+		remove_variable = srd_pending_courtesy
+	}
+}
+
+# Status report, opened by srd_realm_report_decision.
+srd_events.0100 = {
+	type = character_event
+	title = srd_report_title
+	theme = realm
+	desc = srd_report_desc
+
+	left_portrait = {
+		character = root
+	}
+
+	option = {
+		name = srd_report_option_close
+	}
+}
