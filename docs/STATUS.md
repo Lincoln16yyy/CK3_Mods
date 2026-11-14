@@ -13,7 +13,7 @@ State vocabulary: **IMPLEMENTADO** (code exists) · **VALIDADO ESTÁTICO** (leve
 | Smart Development | NÃO INICIADO | — | — | Phase 6, recommendation-first |
 | Smart Diplomacy | NÃO INICIADO | — | — | Phase 7, recommendation-first |
 | Interface (report decision + event) | IMPLEMENTADO | VALIDADO ESTÁTICO | PENDENTE | no GUI override |
-| pt-BR localization | NÃO APLICÁVEL | — | — | engine has no Portuguese slot; see README |
+| Texto em português (pt-BR) | IMPLEMENTADO | VALIDADO ESTÁTICO | PENDENTE | gravado em `localization/english/` porque a engine não tem slot de português; ver `docs/LOCALIZATION.md` |
 
 ## What "VALIDADO ESTÁTICO" means here
 
