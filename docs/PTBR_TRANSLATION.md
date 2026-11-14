@@ -12,14 +12,23 @@ Tradução comunitária **"Tradução PT-BR"**, de Emerson Antunes
 `antunesemerson/mod-ck3-traducao-pt-br`, último commit 2026-07-10).
 
 Ela foi feita para substituir o pacote **espanhol** (`localization/spanish/*_l_spanish.yml`),
-o que obrigaria a jogar com o jogo em "Español". Como o seu jogo está em inglês, o pacote
-foi convertido por `tools/build_ptbr_pack.py` para substituir o **inglês**.
+o que obrigaria a jogar com o jogo em "Español". O pacote gerado aqui cobre **os dois
+slots**:
+
+- `localization/english/` — texto em PT-BR, com o inglês original nas chaves que a tradução
+  ainda não cobre (96,1% em português).
+- `localization/spanish/` — o pacote original do autor, sem alteração (93,7% em português e
+  o resto em espanhol).
+
+A engine carrega **apenas o idioma ativo**, então dá para jogar em inglês ou em espanhol e
+ver português nos dois casos. O inglês é a melhor opção: as lacunas aparecem em inglês,
+idioma em que você já joga.
 
 ## O que o script faz
 
 1. Lê o vanilla inglês instalado (fonte de verdade de quais chaves existem em 1.20.1).
 2. Lê o pacote comunitário em `localization/spanish/`.
-3. Grava `localization/replace/english/<mesmo caminho>_l_english.yml` com:
+3. Grava `localization/english/<mesmo caminho>_l_english.yml` com:
    - cabeçalho `l_english:`;
    - todas as linhas traduzidas, sem alteração;
    - **toda chave que a tradução não tem, copiada do inglês** — assim nenhuma chave
@@ -30,8 +39,14 @@ foi convertido por `tools/build_ptbr_pack.py` para substituir o **inglês**.
 python3 tools/build_ptbr_pack.py \
   --source /caminho/mod-ck3-traducao-pt-br/traducao_pt_br \
   --game  "$HOME/Downloads/Crusader Kings III/Crusader Kings III/game" \
-  --out   "$HOME/.config/hydralauncher/wine-prefixes/1158310/drive_c/users/steamuser/Documents/Paradox Interactive/Crusader Kings III/mod/traducao_ptbr_120"
+  --out   "$HOME/.config/hydralauncher/wine-prefixes/1158310/drive_c/users/steamuser/Documents/Paradox Interactive/Crusader Kings III/mod/traducao_ptbr_120" \
+  --also-spanish-slot
 ```
+
+O caminho gravado é o mesmo das pastas do vanilla (`localization/<idioma>/...`). Um arquivo
+de mod que define uma chave vence o vanilla — é o mecanismo que a própria tradução
+comunitária usa. A pasta `replace/` foi testada primeiro e descartada: ela não é necessária
+aqui e, além disso, manter duas cópias das mesmas chaves só duplicaria definições.
 
 ## Cobertura medida (vanilla 1.20.1)
 
@@ -51,14 +66,16 @@ nada, apenas aparecem em inglês.
 
 ## Instalação
 
-O pacote já foi gerado em
-`.../Crusader Kings III/mod/traducao_ptbr_120` com `descriptor.mod` e
-`traducao_ptbr_120.mod` (`supported_version="1.20.*"`). No launcher:
+O pacote foi gerado em `.../Crusader Kings III/mod/traducao_ptbr_120` com `descriptor.mod`
+e `traducao_ptbr_120.mod` (`supported_version="1.20.*"`) e **já está na lista de mods
+ativos** (`dlc_load.json`, 18 entradas, ele por último).
 
-1. Ative **Traducao PT-BR (compat 1.20.1)**.
-2. Mantenha o jogo em **English** (o pacote substitui o inglês; não troque para espanhol).
-3. Deixe-o **abaixo** dos mods de conteúdo, para que textos de mods que também traduzem
-   o inglês (como o Smart Realm Director) não sejam sobrescritos por engano.
+1. Feche o jogo por completo; mods só carregam na inicialização.
+2. Abra de novo. O idioma pode ficar em **English** (melhor cobertura) ou **Español** — os
+   dois mostram português.
+3. Se você usa o launcher para gerenciar playset, confirme que **Traducao PT-BR (compat
+   1.20.1)** e **Smart Realm Director** continuam marcados; se o launcher reescrever
+   `dlc_load.json`, basta remarcar.
 
 ## Limitações e cuidados
 
@@ -67,8 +84,8 @@ O pacote já foi gerado em
   por tamanho. Mantenha os créditos se redistribuir.
 - **Nada foi verificado em jogo.** A checagem é estática: BOM, cabeçalho, e o conjunto de
   chaves de cada arquivo gerado contendo todas as chaves vanilla correspondentes.
-- `localization/replace/` é a pasta documentada pela Paradox para sobrescrever textos
-  existentes; ordem de carregamento ainda precisa ser confirmada na prática.
+- Ordem de carregamento de localização ainda precisa ser confirmada na prática: o pacote
+  está por último justamente para vencer textos de outros mods.
 - Se você atualizar a tradução comunitária, rode o script de novo — é idempotente.
 - Chaves de mods que não sejam o SRD continuam como cada mod definir.
 

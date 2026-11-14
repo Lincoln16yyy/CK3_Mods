@@ -2,6 +2,19 @@
 
 Newest first. Each entry: date, what changed, what was tested, what is pending.
 
+## 2026-11-14 — Diagnóstico do primeiro teste em jogo
+
+- Relato do usuário: entrou em inglês e continuou inglês; trocou para espanhol e continuou
+  espanhol. Causa encontrada: **os dois mods novos não estavam ativos** — `dlc_load.json`
+  tinha só as 16 entradas antigas, sem `Smart_Realm_Director.mod` nem
+  `traducao_ptbr_120.mod`. O jogo rodou às 20:29 com `pdx_settings.txt` em `l_spanish`.
+- Correção: os dois mods foram adicionados ao `dlc_load.json` (18 entradas, backup feito).
+- Correção de empacotamento: a pasta `localization/replace/english/` foi substituída pelo
+  espelhamento direto `localization/english/`, que é o mecanismo usado pela própria
+  tradução comunitária; `replace/` foi descartada para não duplicar definições.
+- O pacote passou a incluir também `localization/spanish/` (original do autor), então a
+  tradução aparece tanto com o jogo em inglês quanto em espanhol.
+
 ## 2026-11-14 — Game-wide PT-BR pack built
 
 - Found the community translation "Tradução PT-BR" (Emerson Antunes), built for the Spanish

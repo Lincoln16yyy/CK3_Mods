@@ -14,7 +14,7 @@ repository can hold several unrelated mods.
 O CK3 1.20.1 não tem idioma português, então o jogo inteiro em PT-BR é feito substituindo
 o pacote de um idioma existente. `tools/build_ptbr_pack.py` converte a tradução
 comunitária "Tradução PT-BR" (de Emerson Antunes, feita para o slot espanhol) em um pacote
-que substitui o **inglês**, com fallback em inglês para chaves não traduzidas.
+que cobre **inglês e espanhol**, com fallback no idioma nativo para chaves não traduzidas.
 
 Cobertura medida: **96,1%** das 307.119 chaves do vanilla, **zero chave crua** nos arquivos
 substituídos, 78 arquivos ainda em inglês. Método, instalação e limites em

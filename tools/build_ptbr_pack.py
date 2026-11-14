@@ -14,7 +14,8 @@ Why this exists
 What it does
     1. Reads the vanilla English localization tree (source of truth for which keys exist).
     2. Reads the community pack (`localization/spanish/*_l_spanish.yml`).
-    3. Writes `localization/replace/english/<same path>_l_english.yml` with:
+    3. Writes `localization/english/<same path>_l_english.yml` (mirroring the vanilla
+       tree) with:
          - `l_english:` header
          - every translated line, unchanged
          - every missing vanilla key, appended verbatim in English
@@ -33,6 +34,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -66,11 +68,19 @@ def main() -> int:
     parser.add_argument("--source", required=True, help="community pack root (…/traducao_pt_br)")
     parser.add_argument("--game", required=True, help="CK3 install root (…/Crusader Kings III/game)")
     parser.add_argument("--out", required=True, help="output mod directory")
+    parser.add_argument(
+        "--also-spanish-slot",
+        action="store_true",
+        help="also copy the original Spanish-slot files, so the pack shows Portuguese when "
+        "the game language is Espanol as well (the engine only loads the active language)",
+    )
     args = parser.parse_args()
 
     vanilla_root = Path(args.game).expanduser() / "localization" / "english"
     source_root = Path(args.source).expanduser() / "localization" / "spanish"
-    out_root = Path(args.out).expanduser() / "localization" / "replace" / "english"
+    # Same relative path as the vanilla files: a mod file that defines a key wins over
+    # vanilla, which is the mechanism the community translation itself relies on.
+    out_root = Path(args.out).expanduser() / "localization" / "english"
 
     if not vanilla_root.is_dir():
         print(f"FAIL: vanilla English localization not found at {vanilla_root}")
@@ -119,6 +129,13 @@ def main() -> int:
         files_written += 1
         translated_keys += len([key for key in pt_keys if key in van_keys])
         appended_keys += len(missing)
+
+    if args.also_spanish_slot:
+        spanish_out = Path(args.out).expanduser() / "localization" / "spanish"
+        if spanish_out.exists():
+            shutil.rmtree(spanish_out)
+        shutil.copytree(source_root, spanish_out)
+        print(f"Spanish slot copied      : {len(list(spanish_out.rglob('*.yml')))} files")
 
     for van_path in sorted(vanilla_root.rglob("*.yml")):
         rel = van_path.relative_to(vanilla_root)
