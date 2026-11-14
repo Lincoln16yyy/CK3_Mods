@@ -1,0 +1,28 @@
+# Smart Realm Director - decisions (Phase 1 interface).
+# Decisions are reused instead of overriding gui/window_council.gui or
+# gui/window_military.gui, which are already contested by other installed mods.
+
+srd_realm_report_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_personal_religious.dds"
+	}
+	desc = srd_realm_report_decision_desc
+	selection_tooltip = srd_realm_report_decision_tooltip
+
+	sort_order = 500
+	ai_check_interval = 0
+
+	is_shown = {
+		is_ruler = yes
+	}
+
+	is_valid_showing_failures_only = {
+		is_imprisoned = no
+	}
+
+	cooldown = { days = 30 }
+
+	effect = {
+		trigger_event = { id = srd_events.0100 days = 0 }
+	}
+}

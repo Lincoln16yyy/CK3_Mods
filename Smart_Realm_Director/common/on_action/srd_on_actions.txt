@@ -1,0 +1,25 @@
+# Smart Realm Director - on_action hooks.
+#
+# yearly_playable_pulse is defined by vanilla (game/common/on_action/yearly_on_actions.txt).
+# Per game/common/on_action/_on_actions.info and ck3.paradoxwikis.com/Modding, the
+# "on_actions", "events" and "random_events" lists of an existing on_action are
+# APPENDED, so declaring only "on_actions" here keeps every vanilla effect intact.
+
+yearly_playable_pulse = {
+	on_actions = {
+		srd_yearly_playable_pulse
+	}
+}
+
+srd_yearly_playable_pulse = {
+	effect = {
+		# Root: the character receiving the yearly pulse.
+		if = {
+			limit = {
+				is_ai = no
+				is_ruler = yes
+			}
+			srd_vassals_yearly_effect = yes
+		}
+	}
+}

@@ -1,0 +1,23 @@
+# Smart Realm Director - Smart Vassals triggers.
+# Scope: a vassal of the player (evaluated inside every_vassal / any_vassal).
+#
+# Evidence for each primitive (CK3 1.20.1, installed game files):
+#   opinion = { target = X value <= N }  -> game/common/activities/pulse_actions/hunt_pulse_actions.txt:1371
+#   has_opinion_modifier = { modifier = M target = T }
+#                                        -> game/common/activities/activity_types/pilgrimage.txt:2793
+#   has_character_flag                   -> used across game/common (flags are per-character)
+
+srd_courtesy_candidate_trigger = {
+	is_alive = yes
+	is_adult = yes
+	is_imprisoned = no
+	opinion = { target = liege value <= -20 }
+	# One gift per vassal every 3 years: prevents gold farming and opinion stacking.
+	NOT = { has_character_flag = srd_gift_received }
+	NOT = {
+		has_opinion_modifier = {
+			modifier = srd_courtesy_opinion
+			target = liege
+		}
+	}
+}

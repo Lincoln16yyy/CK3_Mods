@@ -1,0 +1,9 @@
+# Smart Realm Director - opinion modifiers.
+# Format verified against game/common/opinion_modifiers/00_council_opinions.txt
+# (opinion / decaying / years).
+
+srd_courtesy_opinion = {
+	opinion = 25
+	decaying = no
+	years = 5
+}
